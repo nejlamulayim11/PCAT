@@ -1,18 +1,47 @@
-const express = require('express')
-const path = require('path');
+import mongoose from 'mongoose'; 
+import express from 'express';
+import ejs from 'ejs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import Photo from './models/Photo.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
+
+mongoose.connect('mongodb://127.0.0.1/pcat-test-db'); 
+
+app.set("view engine","ejs");
 
 const myLogger = (req,res,next) =>{
     console.log("middleware log 1");
     next(); 
 }
 
-//Middleware
 app.use(express.static('public'));
 app.use(myLogger);
-app.get('/',(req,res) =>{
-    res.sendFile(path.resolve(__dirname, 'temp/index.html'))
-  
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+
+app.get('/', async (req,res) =>{
+   const photos = await Photo.find({})
+   res.render('index',{
+      photos
+   }); 
+})
+
+app.get('/about',(req,res) =>{
+   res.render('about') 
+})
+
+app.get('/add',(req,res) =>{
+   res.render('add') 
+})
+
+app.post('/photos', async (req,res) =>{
+   await Photo.create(req.body)
+   res.redirect('/')
 })
 
 const port = 3000;

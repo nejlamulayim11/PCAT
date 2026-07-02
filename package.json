@@ -2,6 +2,8 @@
   "name": "pcat",
   "version": "1.0.0",
   "description": "PCAT Photo App",
+  "main": "app.js",
+  "type": "module",
   "keywords": [
     "photo",
     "app",
@@ -17,8 +19,6 @@
   },
   "license": "ISC",
   "author": "Nejla Mulayim",
-  "type": "commonjs",
-  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
@@ -28,6 +28,8 @@
     "prettier": "3.9.4"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.3"
   }
 }
