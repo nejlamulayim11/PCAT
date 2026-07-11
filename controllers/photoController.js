@@ -7,9 +7,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const getAllPhotos = async (req, res) => {
-  const photos = await Photo.find({}).sort('-dateCreated');
+  // 1. Sayfa numarasını yakala veya 1 olarak belirle
+  const page = req.query.page || 1;
+  
+  // 2. Sayfa başına gösterilecek fotoğraf sayısı
+  const photosPerPage = 3;
+  
+  // 3. Veritabanındaki toplam fotoğraf sayısını al
+  const totalPhotos = await Photo.find().countDocuments();
+
+  // 4. Fotoğrafları sayfalama mantığına göre getir
+  const photos = await Photo.find({})
+    .sort('-dateCreated')
+    .skip((page - 1) * photosPerPage)
+    .limit(photosPerPage);
+
+  // 5. Verileri render edilecek sayfaya gönder
   res.render('index', {
     photos,
+    current: page,
+    pages: Math.ceil(totalPhotos / photosPerPage),
   });
 };
 
