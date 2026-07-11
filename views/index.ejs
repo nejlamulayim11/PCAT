@@ -4,7 +4,6 @@
     <div class="tm-page-wrap mx-auto">
         <div class="position-relative">
 
-            
             <%- include('partials/_navigation') -%>
 
             <div class="tm-welcome-container text-center text-white">
@@ -47,21 +46,26 @@
                     </div>
                     
                     <div class="row tm-catalog-item-list">
-                            <% for(let i = 0; i < photos.length; i++) { %>
-
+                        
+                        <!-- DÖNGÜ BAŞLANGICI -->
+                        <% for(let i = 0; i < photos.length; i++) { %>
                         <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
                             <div class="position-relative tm-thumbnail-container">
-                                <img src="img/tn-01.jpg" alt="Image" class="img-fluid tm-catalog-item-img">    
-                                <a href="video-page.html" class="position-absolute tm-img-overlay">
+                                <!-- Görsel yolu dinamik hale getirildi -->
+                                <img src="<%= photos[i].image %>" alt="Image" class="img-fluid tm-catalog-item-img">    
+                                <a href="/photos/<%= photos[i]._id %>" class="position-absolute tm-img-overlay">
                                     <i class="fas fa-play tm-overlay-icon"></i>
                                 </a>
                             </div>    
                             <div class="p-4 tm-bg-gray tm-catalog-item-description">
-                                <h3 class="tm-text-primary mb-3 tm-catalog-item-title">BU BİR BAŞLIK</h3>
-                                <p class="tm-catalog-item-text">HELLOOOO</p>
+                                <!-- Başlık dinamik hale getirildi -->
+                                <h3 class="tm-text-primary mb-3 tm-catalog-item-title"><%= photos[i].title %></h3>
+                                <!-- Açıklama dinamik hale getirildi -->
+                                <p class="tm-catalog-item-text"><%= photos[i].description %></p>
                             </div>
                         </div>
-                          <% } %>
+                        <% } %>
+                        <!-- DÖNGÜ BİTİŞİ -->
 
                     </div>
 
