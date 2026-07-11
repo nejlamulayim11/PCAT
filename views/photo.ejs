@@ -38,9 +38,10 @@
                                 <h2 class="mb-5 tm-video-title"> <%= photo.title %> </h2>
                                 <p class="mb-4"> <%= photo.description %> </p>
                                 
-                                <!-- GÜNCELLEME BUTONU BURAYA EKLENDİ -->
-                                <div class="mt-4">
-                                    <a href="/photos/edit/<%= photo._id %>" class="btn btn-primary p-3">Update Details</a>
+                                <!-- GÜNCELLEME VE SİLME BUTONLARI BURAYA EKLENDİ -->
+                                <div class="mt-4 d-flex">
+                                    <a href="/photos/edit/<%= photo._id %>" class="btn btn-primary p-3 mr-3">Update Details</a>
+                                    <a href="/photos/<%= photo._id %>?_method=DELETE" class="btn btn-danger p-3" onclick="return confirm('ARE YOU SURE?')">Delete Photo</a>
                                 </div>
                                 
                             </div>                          
